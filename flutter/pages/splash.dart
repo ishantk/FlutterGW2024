@@ -21,6 +21,7 @@ class _SplashState extends State<Splash> {
       ));*/
 
       Navigator.of(context).pushReplacementNamed("/dishes");
+      //Navigator.of(context).pushReplacementNamed("/third");
     });
   }
 

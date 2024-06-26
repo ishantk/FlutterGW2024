@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ListDishes extends StatelessWidget {
   const ListDishes({super.key});
 
-  getDishes() {
+  getDishes(BuildContext context) {
     List<Dish> dishes = [
       Dish(
           imageURL:
@@ -49,33 +49,38 @@ class ListDishes extends StatelessWidget {
     //         title: Text(element.name)))
     //     .toList();
 
-    List<Container> dishListElements = dishes
-        .map((element) => Container(
-              padding: const EdgeInsets.all(16),
-              color: element.color,
-              child: Row(
-                children: [
-                  Image.network(
-                    element.imageURL,
-                    width: 64,
-                    height: 64,
-                  ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(element.name),
-                      Text("\u20b9 ${element.price}"),
-                      Text(element.rating.toString()),
-                    ],
-                  ),
-                  const Divider(
-                    height: 20,
-                    color: Colors.black,
-                  )
-                ],
+    List<GestureDetector> dishListElements = dishes
+        .map((element) => GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed("/dishdetail");
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                color: element.color,
+                child: Row(
+                  children: [
+                    Image.network(
+                      element.imageURL,
+                      width: 64,
+                      height: 64,
+                    ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(element.name),
+                        Text("\u20b9 ${element.price}"),
+                        Text(element.rating.toString()),
+                      ],
+                    ),
+                    const Divider(
+                      height: 20,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
               ),
             ))
         .toList();
@@ -87,7 +92,7 @@ class ListDishes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Menu")),
-      body: ListView(children: getDishes()),
+      body: ListView(children: getDishes(context)),
     );
   }
 }

@@ -1,8 +1,13 @@
+import 'package:demo_flutter_application/pages/dish-detail.dart';
+import 'package:demo_flutter_application/pages/first-screen.dart';
+import 'package:demo_flutter_application/pages/fourth-screen.dart';
 import 'package:demo_flutter_application/pages/home.dart';
 import 'package:demo_flutter_application/pages/list-dishes.dart';
 import 'package:demo_flutter_application/pages/list-quotes.dart';
 import 'package:demo_flutter_application/pages/quotes.dart';
+import 'package:demo_flutter_application/pages/second-screen.dart';
 import 'package:demo_flutter_application/pages/splash.dart';
+import 'package:demo_flutter_application/pages/third-screen.dart';
 import 'package:flutter/material.dart';
 
 main() => runApp(const MainApp());
@@ -19,13 +24,16 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       title: "My App",
-
       // Named Routing
       initialRoute: "/",
       routes: {
         "/": (context) => const Splash(),
         "/dishes": (context) => const ListDishes(),
-        "/quotes": (context) => const ListQuotes()
+        "/quotes": (context) => const ListQuotes(),
+        "/first": (context) => const FirstScreen(),
+        "/second": (context) => const SecondScreen(),
+        "/third": (context) => const ThirdScreen(),
+        "/dishdetail": (context) => const DishDetail(),
       },
     );
   }

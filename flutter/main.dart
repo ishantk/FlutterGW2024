@@ -4,7 +4,10 @@ import 'package:demo_flutter_application/pages/fourth-screen.dart';
 import 'package:demo_flutter_application/pages/home.dart';
 import 'package:demo_flutter_application/pages/list-dishes.dart';
 import 'package:demo_flutter_application/pages/list-quotes.dart';
+import 'package:demo_flutter_application/pages/login-page-form.dart';
+import 'package:demo_flutter_application/pages/login-page.dart';
 import 'package:demo_flutter_application/pages/quotes.dart';
+import 'package:demo_flutter_application/pages/register-page.dart';
 import 'package:demo_flutter_application/pages/second-screen.dart';
 import 'package:demo_flutter_application/pages/splash.dart';
 import 'package:demo_flutter_application/pages/third-screen.dart';
@@ -34,6 +37,9 @@ class MainApp extends StatelessWidget {
         "/second": (context) => const SecondScreen(),
         "/third": (context) => const ThirdScreen(),
         "/dishdetail": (context) => const DishDetail(),
+        "/login": (context) => const LoginPage(),
+        "/loginForm": (context) => const LoginPageForm(),
+        "/register": (context) => const RegisterPage(),
       },
     );
   }

@@ -52,7 +52,8 @@ class ListDishes extends StatelessWidget {
     List<GestureDetector> dishListElements = dishes
         .map((element) => GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed("/dishdetail");
+                Navigator.of(context)
+                    .pushNamed("/dishdetail", arguments: element);
               },
               child: Container(
                 padding: const EdgeInsets.all(16),

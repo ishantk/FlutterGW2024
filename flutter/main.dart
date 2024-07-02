@@ -12,8 +12,13 @@ import 'package:demo_flutter_application/pages/second-screen.dart';
 import 'package:demo_flutter_application/pages/splash.dart';
 import 'package:demo_flutter_application/pages/third-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-main() => runApp(const MainApp());
+main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MainApp());
+}
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});

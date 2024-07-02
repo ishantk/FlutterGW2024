@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,11 +26,31 @@ class _LoginPageState extends State<LoginPage> {
     passwordController.dispose();
   }
 
-  login() {
+  login() async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
     if (email.isNotEmpty && password.isNotEmpty) {
+      try {
+        final credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        print("User Sign in with : Email: $email | Password: $password");
+        print("Credential: $credential");
+
+        Navigator.of(context).pushReplacementNamed("/dishes");
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+      } catch (e) {
+        print(e);
+      }
+
       print("Details: Email: $email | Password: $password");
     } else {
       print("Missing Details: Email: $email | Password: $password");
@@ -94,11 +115,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 12,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  login();
-                },
-                child: const Text("Login")),
+            ElevatedButton(onPressed: login, child: const Text("Login")),
             const SizedBox(
               height: 12,
             ),

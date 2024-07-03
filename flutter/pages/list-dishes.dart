@@ -1,8 +1,30 @@
 import 'package:demo_flutter_application/model/dish.dart';
+import 'package:demo_flutter_application/model/task.dart';
+import 'package:demo_flutter_application/services/task-service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ListDishes extends StatelessWidget {
   const ListDishes({super.key});
+
+  addTask() async {
+    String userId = "";
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      userId = user!.uid;
+
+      TaskService service = TaskService(userId: userId);
+
+      Task task = Task(
+          title: "Revise Flutter",
+          description: "Go through Flutter Firebase DB operation Architecture",
+          startDate: DateTime.now(),
+          endDate: DateTime.now(),
+          isCompleted: false,
+          createdOn: DateTime.now());
+
+      service.addTask(task);
+    });
+  }
 
   getDishes(BuildContext context) {
     List<Dish> dishes = [
@@ -89,11 +111,26 @@ class ListDishes extends StatelessWidget {
     return dishListElements;
   }
 
+  logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacementNamed("/");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Menu")),
+      appBar: AppBar(title: const Text("Menu"), actions: [
+        IconButton(
+            onPressed: () {
+              logout(context);
+            },
+            icon: const Icon(Icons.logout))
+      ]),
       body: ListView(children: getDishes(context)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: addTask,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

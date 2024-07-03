@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -14,6 +15,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordController = TextEditingController();
 
   register() async {
+    String name = nameController.text.trim();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
@@ -28,13 +30,24 @@ class _RegisterPageState extends State<RegisterPage> {
       */
 
       try {
-        final credential =
+        UserCredential credential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
         print("User Created with : Email: $email | Password: $password");
         print("Credential: $credential");
+        print("UID: ${credential.user!.uid}");
+
+        Map<String, dynamic> user = {
+          "name": name,
+          "email": email,
+          "uid": credential.user!.uid
+        };
+
+        FirebaseFirestore.instance.collection("users").add(user).then(
+            (DocumentReference doc) =>
+                print('DocumentSnapshot added with ID: ${doc.id}'));
 
         Navigator.of(context).pushReplacementNamed("/dishes");
       } on FirebaseAuthException catch (e) {

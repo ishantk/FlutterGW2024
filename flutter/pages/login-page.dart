@@ -39,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         );
         print("User Sign in with : Email: $email | Password: $password");
         print("Credential: $credential");
+        print("UID: ${credential.user!.uid}");
 
         Navigator.of(context).pushReplacementNamed("/dishes");
       } on FirebaseAuthException catch (e) {

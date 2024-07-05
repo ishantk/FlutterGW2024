@@ -22,6 +22,12 @@ class ListDishes extends StatelessWidget {
     service.addTask(task);
   }
 
+  fetchTasks() async {
+    print("fetchTasks executed... UID is: ${Util.UID}");
+    TaskService service = TaskService(userId: Util.UID);
+    service.getTasks();
+  }
+
   getDishes(BuildContext context) {
     List<Dish> dishes = [
       Dish(
@@ -124,7 +130,7 @@ class ListDishes extends StatelessWidget {
       ]),
       body: ListView(children: getDishes(context)),
       floatingActionButton: FloatingActionButton(
-        onPressed: addTask,
+        onPressed: fetchTasks,
         child: const Icon(Icons.add),
       ),
     );

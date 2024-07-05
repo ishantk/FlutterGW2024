@@ -21,6 +21,7 @@ class Task {
       required this.isCompleted,
       required this.createdOn});
 
+  // Serialization
   // toMap i.e. Map representation of Object
   Map<String, dynamic> toMap() {
     return {
@@ -33,15 +34,15 @@ class Task {
     };
   }
 
+  // DeSerialization
   // Create a Task from a Map
   static Task fromMap(Map<String, dynamic> map) {
     return Task(
-      title: map['title'],
-      description: map['description'],
-      startDate: map['startDate'],
-      endDate: map['endDate'],
-      isCompleted: map['isCompleted'],
-      createdOn: map['createdOn'],
-    );
+        title: map["title"],
+        description: map["description"],
+        startDate: map["startDate"],
+        endDate: map["endDate"],
+        isCompleted: map["isCompleted"],
+        createdOn: map["createdOn"]);
   }
 }

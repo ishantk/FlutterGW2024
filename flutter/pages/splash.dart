@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:demo_flutter_application/pages/list-dishes.dart';
+import 'package:demo_flutter_application/utils/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class _SplashState extends State<Splash> {
         });
       } else {
         print('User is signed in!');
+        Util.UID = user.uid;
         Timer(const Duration(seconds: 3), () {
           Navigator.of(context).pushReplacementNamed("/dishes");
         });

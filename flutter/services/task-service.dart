@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_flutter_application/model/task.dart';
+import 'package:demo_flutter_application/utils/util.dart';
 
 class TaskService {
   String userId;
@@ -28,16 +29,22 @@ class TaskService {
   }
 
   getTasks() {
+    print("getTasks: ${Util.UID}");
     taskCollection!.get().then(
       (querySnapshot) {
         print("Successfully completed");
-        for (var docSnapshot in querySnapshot.docs) {
-          print('${docSnapshot.id} => ${docSnapshot.data()}');
+        for (var document in querySnapshot.docs) {
+          print('${document.id} => ${document.data()}');
         }
+
+        // Hint for 1.
+        //querySnapshot.docs.map((e) => null);
       },
       onError: (e) => print("Error completing: $e"),
     );
 
-    //taskCollection.snapshots().map((QuerySnapshot querySnapshot) => null)
+    // 1. Convert the document.data() into List of Task Objects using map function
+    // 2. Create a AddTask UI with 2 Text Fields (Title and Description) and a Button
+    // 3. Create a ListTask UI and display data as ListView
   }
 }

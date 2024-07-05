@@ -1,6 +1,7 @@
 import 'package:demo_flutter_application/model/dish.dart';
 import 'package:demo_flutter_application/model/task.dart';
 import 'package:demo_flutter_application/services/task-service.dart';
+import 'package:demo_flutter_application/utils/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,22 +9,17 @@ class ListDishes extends StatelessWidget {
   const ListDishes({super.key});
 
   addTask() async {
-    String userId = "";
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      userId = user!.uid;
+    TaskService service = TaskService(userId: Util.UID);
 
-      TaskService service = TaskService(userId: userId);
+    Task task = Task(
+        title: "Fetch Data in Flutter Firebase",
+        description: "Create a New UI to fetch and display data",
+        startDate: DateTime.now(),
+        endDate: DateTime.now(),
+        isCompleted: false,
+        createdOn: DateTime.now());
 
-      Task task = Task(
-          title: "Revise Flutter",
-          description: "Go through Flutter Firebase DB operation Architecture",
-          startDate: DateTime.now(),
-          endDate: DateTime.now(),
-          isCompleted: false,
-          createdOn: DateTime.now());
-
-      service.addTask(task);
-    });
+    service.addTask(task);
   }
 
   getDishes(BuildContext context) {

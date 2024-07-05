@@ -32,4 +32,16 @@ class Task {
       "createdOn": createdOn.toIso8601String()
     };
   }
+
+  // Create a Task from a Map
+  static Task fromMap(Map<String, dynamic> map) {
+    return Task(
+      title: map['title'],
+      description: map['description'],
+      startDate: map['startDate'],
+      endDate: map['endDate'],
+      isCompleted: map['isCompleted'],
+      createdOn: map['createdOn'],
+    );
+  }
 }

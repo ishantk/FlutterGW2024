@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_flutter_application/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -30,26 +31,40 @@ class _RegisterPageState extends State<RegisterPage> {
       */
 
       try {
+        // 1. Create user in Firebase Authentication Module
         UserCredential credential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
+
+        // 2. Get the UID of the newwly created user
+        String uid = credential.user!.uid;
+        Util.UID = uid;
+
         print("User Created with : Email: $email | Password: $password");
         print("Credential: $credential");
-        print("UID: ${credential.user!.uid}");
+        print("UID: $uid");
 
-        Map<String, dynamic> user = {
+        // 3. Create the data as Map, which you wish to store in database
+        Map<String, dynamic> userData = {
           "name": name,
           "email": email,
-          "uid": credential.user!.uid
+          "createdOn": DateTime.now()
         };
 
-        FirebaseFirestore.instance.collection("users").add(user).then(
-            (DocumentReference doc) =>
-                print('DocumentSnapshot added with ID: ${doc.id}'));
+        // FirebaseFirestore.instance.collection("users").add(user).then(
+        //     (DocumentReference doc) =>
+        //         print('DocumentSnapshot added with ID: ${doc.id}'));
 
-        Navigator.of(context).pushReplacementNamed("/dishes");
+        // 4. User Firebase Firestore to create a new Document in users collection
+        FirebaseFirestore.instance
+            .collection("users")
+            .doc(uid)
+            .set(userData)
+            .then((value) {
+          Navigator.of(context).pushReplacementNamed("/dishes");
+        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');

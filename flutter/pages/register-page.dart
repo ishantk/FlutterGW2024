@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_flutter_application/model/user.dart';
 import 'package:demo_flutter_application/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,11 +48,35 @@ class _RegisterPageState extends State<RegisterPage> {
         print("UID: $uid");
 
         // 3. Create the data as Map, which you wish to store in database
-        Map<String, dynamic> userData = {
-          "name": name,
-          "email": email,
-          "createdOn": DateTime.now()
-        };
+        // Map<String, dynamic> userData = {
+        //   "name": name,
+        //   "email": email,
+        //   "createdOn": DateTime.now()
+        // };
+
+        var user = AppUser(
+            name: name,
+            phone: "",
+            email: email,
+            gender: "male",
+            sports: "",
+            addressLine: "",
+            city: "",
+            state: "",
+            country: "",
+            location: const GeoPoint(75.555, 66.555),
+            role: "",
+            highestPlayedLevel: "",
+            dateOfBirth: DateTime.now(),
+            age: 0,
+            representClub: false,
+            clubName: "",
+            schoolCollegeOrgName: "",
+            username: email,
+            imageURL: "",
+            createdOn: DateTime.now());
+
+        Map<String, dynamic> userData = user.toMap();
 
         // FirebaseFirestore.instance.collection("users").add(user).then(
         //     (DocumentReference doc) =>
@@ -63,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
             .doc(uid)
             .set(userData)
             .then((value) {
-          Navigator.of(context).pushReplacementNamed("/dishes");
+          Navigator.of(context).pushReplacementNamed("/home");
         });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {

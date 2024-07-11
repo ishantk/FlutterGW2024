@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
         print('User is signed in!');
         Util.UID = user.uid;
         Timer(const Duration(seconds: 3), () {
-          Navigator.of(context).pushReplacementNamed("/dishes");
+          Navigator.of(context).pushReplacementNamed("/home");
         });
       }
     });

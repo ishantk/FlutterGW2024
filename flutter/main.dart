@@ -1,7 +1,7 @@
 import 'package:demo_flutter_application/pages/dish-detail.dart';
 import 'package:demo_flutter_application/pages/first-screen.dart';
 import 'package:demo_flutter_application/pages/fourth-screen.dart';
-import 'package:demo_flutter_application/pages/home.dart';
+import 'package:demo_flutter_application/pages/home-page.dart';
 import 'package:demo_flutter_application/pages/list-dishes.dart';
 import 'package:demo_flutter_application/pages/list-quotes.dart';
 import 'package:demo_flutter_application/pages/login-page-form.dart';
@@ -41,6 +41,7 @@ class MainApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => const Splash(),
+        "/home": (context) => const HomePage(),
         "/dishes": (context) => const ListDishes(),
         "/quotes": (context) => const ListQuotes(),
         "/first": (context) => const FirstScreen(),

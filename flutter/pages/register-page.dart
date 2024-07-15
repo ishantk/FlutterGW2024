@@ -58,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
             name: name,
             phone: "",
             email: email,
-            gender: "male",
+            gender: "",
             sports: "",
             addressLine: "",
             city: "",

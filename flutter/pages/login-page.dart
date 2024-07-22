@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_flutter_application/model/user.dart';
+import 'package:demo_flutter_application/utils/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +44,17 @@ class _LoginPageState extends State<LoginPage> {
         print("Credential: $credential");
         print("UID: ${credential.user!.uid}");
 
-        Navigator.of(context).pushReplacementNamed("/home");
+        final docRef = FirebaseFirestore.instance
+            .collection("users")
+            .doc(credential.user!.uid);
+        docRef.get().then(
+          (DocumentSnapshot doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            Util.user = AppUser.fromMap(data);
+            Navigator.of(context).pushReplacementNamed("/home");
+          },
+          onError: (e) => print("Error getting document: $e"),
+        );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');

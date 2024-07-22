@@ -54,33 +54,11 @@ class _RegisterPageState extends State<RegisterPage> {
         //   "createdOn": DateTime.now()
         // };
 
-        var user = AppUser(
-            name: name,
-            phone: "",
-            email: email,
-            gender: "",
-            sports: "",
-            addressLine: "",
-            city: "",
-            state: "",
-            country: "",
-            location: const GeoPoint(75.555, 66.555),
-            role: "",
-            highestPlayedLevel: "",
-            dateOfBirth: DateTime.now(),
-            age: 0,
-            representClub: false,
-            clubName: "",
-            schoolCollegeOrgName: "",
-            username: email,
-            imageURL: "",
-            createdOn: DateTime.now());
+        var user = AppUser.getAppUserEmptyObject();
+        user.name = name;
+        user.email = email;
 
         Map<String, dynamic> userData = user.toMap();
-
-        // FirebaseFirestore.instance.collection("users").add(user).then(
-        //     (DocumentReference doc) =>
-        //         print('DocumentSnapshot added with ID: ${doc.id}'));
 
         // 4. User Firebase Firestore to create a new Document in users collection
         FirebaseFirestore.instance
@@ -88,6 +66,9 @@ class _RegisterPageState extends State<RegisterPage> {
             .doc(uid)
             .set(userData)
             .then((value) {
+          // Associate user to Util.user so that, we can use
+          // the same object anywhere in the application
+          Util.user = user;
           Navigator.of(context).pushReplacementNamed("/home");
         });
       } on FirebaseAuthException catch (e) {

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_flutter_application/model/user.dart';
 import 'package:demo_flutter_application/pages/list-dishes.dart';
 import 'package:demo_flutter_application/utils/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,7 +29,16 @@ class _SplashState extends State<Splash> {
         print('User is signed in!');
         Util.UID = user.uid;
         Timer(const Duration(seconds: 3), () {
-          Navigator.of(context).pushReplacementNamed("/home");
+          final docRef =
+              FirebaseFirestore.instance.collection("users").doc(Util.UID);
+          docRef.get().then(
+            (DocumentSnapshot doc) {
+              final data = doc.data() as Map<String, dynamic>;
+              Util.user = AppUser.fromMap(data);
+              Navigator.of(context).pushReplacementNamed("/home");
+            },
+            onError: (e) => print("Error getting document: $e"),
+          );
         });
       }
     });

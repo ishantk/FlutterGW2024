@@ -60,25 +60,33 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
         children: [
-          Image.asset(
-            'assets/logo.png',
-            width: 96,
-            height: 96,
+          Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.blue,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 20,
+          Center(
+            child: Image.asset(
+              'assets/spoco.png',
+              width: 100,
+              height: 100,
+            ),
           ),
-          const Text(
-            "Auribises",
-            style: TextStyle(fontSize: 18),
-          )
         ],
-      )),
+      ),
     );
   }
 }

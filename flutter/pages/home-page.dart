@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_flutter_application/pages/list-my-turfs.dart';
+import 'package:demo_flutter_application/pages/list-turfs.dart';
 import 'package:demo_flutter_application/pages/multi-image-upload.dart';
-import 'package:demo_flutter_application/pages/my-turfs-page.dart';
+import 'package:demo_flutter_application/pages/add-turfs-page.dart';
 import 'package:demo_flutter_application/pages/profile-page.dart';
 import 'package:demo_flutter_application/utils/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,10 +51,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> widgets = [
-    const Text("Home Page"), // 0
-    const MyTurfsPage(), // 1
+    //const Text("Home Page"), // 0
+    const ListTurfs(),
+    const ListMyTurfs(),
+    // const MyTurfsPage(), // 1
     //const Text("Players Page"), // 2
-    const MultiImageUpload(),
+    //const MultiImageUpload(),
     const ProfilePage() // 3
   ];
 

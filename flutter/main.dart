@@ -1,3 +1,4 @@
+import 'package:demo_flutter_application/pages/add-turfs-page.dart';
 import 'package:demo_flutter_application/pages/dish-detail.dart';
 import 'package:demo_flutter_application/pages/first-screen.dart';
 import 'package:demo_flutter_application/pages/fourth-screen.dart';
@@ -51,6 +52,7 @@ class MainApp extends StatelessWidget {
         "/login": (context) => const LoginPage(),
         "/loginForm": (context) => const LoginPageForm(),
         "/register": (context) => const RegisterPage(),
+        "/add-turf": (context) => const AddTurfsPage(),
       },
     );
   }

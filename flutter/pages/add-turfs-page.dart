@@ -1,17 +1,15 @@
-import 'dart:ffi';
-
 import 'package:demo_flutter_application/model/turf.dart';
 import 'package:demo_flutter_application/services/turf-service.dart';
 import 'package:flutter/material.dart';
 
-class MyTurfsPage extends StatefulWidget {
-  const MyTurfsPage({super.key});
+class AddTurfsPage extends StatefulWidget {
+  const AddTurfsPage({super.key});
 
   @override
-  State<MyTurfsPage> createState() => _MyTurfsPageState();
+  State<AddTurfsPage> createState() => _AddTurfsPageState();
 }
 
-class _MyTurfsPageState extends State<MyTurfsPage> {
+class _AddTurfsPageState extends State<AddTurfsPage> {
   final formKey = GlobalKey<FormState>();
   Turf turf = Turf.getEmptyObject();
   TurfService service = TurfService();
@@ -31,6 +29,7 @@ class _MyTurfsPageState extends State<MyTurfsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Add Turf")),
       body: showProgress
           ? const Center(
               child: Column(

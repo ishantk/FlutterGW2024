@@ -68,6 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
       try {
         await profilePicsRef.putFile(file);
         user.imageURL = await profilePicsRef.getDownloadURL();
+        print("Image URL: ${user.imageURL}");
         saveUserInFirebaseFirestore();
         print("Image Url is: ${user.imageURL}");
       } catch (e) {

@@ -41,6 +41,7 @@ class _MultiImageUploadState extends State<MultiImageUpload> {
 
         final turfPicRef =
             storageRef.child("turf-pics/${file.path.split("/").last}");
+        print("file is: $file");
         await turfPicRef.putFile(file);
         String url = await turfPicRef.getDownloadURL();
         imageURLs.add(url);
